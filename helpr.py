@@ -84,7 +84,7 @@ def remaining(zid):
             if student['status'] != 'waiting':
                 raise KeyError("Invalid status")
             
-    index = 0
+    index = -1
     for students in data:
         if students['zid'] == zid:
             break

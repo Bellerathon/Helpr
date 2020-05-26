@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Helpr</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        table { width: 100%; color:white }
+        table, th, td { border: solid 2px #DDD;
+            border-collapse: collapse; padding: 2px 3px; text-align: center; background-color: #262929; 
+        }       
+        td:hover {background-color: rgb(0, 0, 0);}   
+    </style>
+</head>
+
+<body class="table" style="background-color:rgb(81, 113, 180);" onload="createTable(); timer(); get_time(); myFunction1(); myFunction2()"><br></br>
+    <h1 class="badge badge-info" style="font-size:45px">HELPR </h1>
+    
+    <br></br>
+
+    <header style="border-bottom: 3px solid rgb(255, 255, 255);"></header><br>
+       
+    <form style="font-size:20px; color:white" onsubmit="addRow()">          
+        <b> ENTER YOUR NAME: </b><br>
+        <input type="text" class="form-control" id="fname" name="fname" placeholder="..." >
+    </form><br>
+
+    <p>
+        <input style="font-weight:bold" class="btn btn-success btn-lg btn-block" type="submit" id="fname" value="JOIN QUEUE" onclick="addRow()" />
+    </p>
+
+    <header style="border-bottom: 3px solid rgb(255, 255, 255);"></header><br>
+
+    <h5 style="color:rgb(255, 255, 255)">Tutor in room: <span class="badge badge-pill badge-success">John Smith</span>
+    <h5 style="color:rgb(255, 255, 255)">Session duration: <span class="badge badge-pill badge-info" id="currtime"></span> - <span class="badge badge-pill badge-info" id="endtime"></span>
+    <h5 style="color:rgb(255, 255, 255)">Time left in session: <span class="badge badge-pill badge-warning" id="safeTimerDisplay"></span>
+    
+    <h1 id="demo"> </h1>
+    <h1 id="rQueue"> </h1>
+
+    <br></br>
+    
+    <div id="cont"></div>   <!--the container to add the table.-->
+    
+<script>
+    var arrHead = new Array();
+    var iter=1;
+    var time=0;
+    table_row=0;
+    arrHead = ['PLACE', 'NAME', 'TIME JOINED']; // table headers.
+
+    // first create a TABLE structure by adding few headers.
+    function createTable() {
+        var empTable = document.createElement('table');
+        empTable.setAttribute('id', 'empTable');  // table id.
+
+        var tr = empTable.insertRow(-1);
+
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th'); // the header object.
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('cont');
+        div.appendChild(empTable);    // add table to a container.
+    }
+
+    // function to add new row.
+    function addRow() {
+        var my_name = document.getElementById("fname").value
+        var empTab = document.getElementById('empTable');
+        
+        var rowCnt = empTab.rows.length;    // get the number of rows.
+        var tr = empTab.insertRow(rowCnt); // table row.
+        tr = empTab.insertRow(rowCnt);
+
+        for (var c = 0; c < arrHead.length; c++) {
+            var td = document.createElement('td');          // TABLE DEFINITION.
+            td = tr.insertCell(c);
+
+            if (c == 0) {   // if its the first column of the table.
+                // add a button control.
+                if (iter == 1) {
+                    var el0 = document.createTextNode(iter++);              
+                    td.appendChild(el0);   
+                } else {
+                    var el0 = document.createTextNode(iter++)                
+                    td.appendChild(el0);  
+                }             
+            }
+            if (c == 1) {
+                // the 2nd, 3rd and 4th column, will have textbox.
+                var ele = document.createTextNode(my_name)               
+                td.appendChild(ele);
+            } 
+            if ( c == 2) {
+                if (table_row == 0) {
+                    var e2 = document.createTextNode("Currently being helped")                  
+                    td.appendChild(e2);
+                    td.style.color = "green";
+                } else {
+                    time+=5
+                    var d = new Date(); // for now
+                    d.getHours(); // => 9
+                    d.getMinutes(); // =>  30
+                    d.getSeconds(); // => 51
+                
+                var ampm = d.getHours >= 12 ? 'am' : 'pm';
+                var convert = d.getHours >= 12 ? d.getHours() : d.getHours()-12;
+                var mins = d.getMinutes < 10 ? '0'+d.getMinutes() : d.getMinutes();
+                var ele2 = document.createTextNode(convert + ":" + mins + ampm);            
+                td.appendChild(ele2);
+                }
+                table_row++;
+            }
+        }
+    }
+</script>
+
+<script>
+    var myTimer;
+    function timer(){
+        myTimer = setInterval(myClock, 1000);
+    var c = 3601*2; //Initially set to 1 hour
+
+    function myClock() {
+        --c
+        var seconds = c % 60; // Seconds that cannot be written in minutes
+        var secondsInMinutes = (c - seconds) / 60; // Gives the seconds that COULD be given in minutes
+        var minutes = secondsInMinutes % 60; // Minutes that cannot be written in hours
+        var hours = (secondsInMinutes - minutes) / 60;
+        // Now in hours, minutes and seconds, you have the time you need.
+        
+        document.getElementById("safeTimerDisplay").innerHTML = hours + "hr " + minutes + "min " + seconds + "sec";
+        if (c == 0) {
+            clearInterval(myTimer);
+        }
+    }
+}
+clock();
+</script>
+
+<script>
+    function get_time(){
+        var b = new Date(); // for now
+        b.getHours(); // => 9
+        b.getMinutes(); // =>  30
+        b.getSeconds(); // => 51
+        var ampm = b.getHours >= 12 ? 'am' : 'pm';
+        var convert = b.getHours >= 12 ? b.getHours() : b.getHours()-12;
+        var mins = b.getMinutes < 10 ? '0'+b.getMinutes() : b.getMinutes();
+        document.getElementById("currtime").innerHTML = convert + ":" + mins + ampm;
+        document.getElementById("endtime").innerHTML = (convert + 2) + ":" + mins + ampm;
+    }
+</script>
+
+<script>
+    function myFunction1() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === XMLHttpRequest.DONE) {
+                document.getElementById("demo").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.open("POST", "http://127.0.0.1:5000/hello/", true);
+        xhttp.send();
+    }
+</script>
+
+<script>
+    function myFunction2() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === XMLHttpRequest.DONE) {
+                document.getElementById("rQueue").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.open("GET", "http://127.0.0.1:5000/queue", true);
+        xhttp.send();
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

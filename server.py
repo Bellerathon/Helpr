@@ -6,7 +6,7 @@ passed arguments as JSON data in the body of the request. All routes return data
 as JSON.
 '''
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 from werkzeug.exceptions import BadRequest
 
@@ -16,6 +16,17 @@ from helpr import make_request, queue, remaining, help, resolve, cancel, revert,
 
 APP = Flask(__name__)
 
+@APP.route('/')
+def index():
+    return render_template('new.html')
+
+@APP.route('/admin')
+def admin_page():
+    return render_template('admin.html')
+
+@APP.route('/hello/', methods=['GET', 'POST'])
+def hello_world():
+    return dumps('Hfef')
 
 @APP.route('/make_request', methods=['POST'])
 def make_request_svr():
@@ -55,7 +66,7 @@ def queue_svr():
 
     return dumps(queue_data)
 
-@APP.route('/remaining', methods=['GET'])
+@APP.route('/remaining/', methods=['GET'])
 def remaining_svr():
     '''
     A route for helpr.remaining()
@@ -67,16 +78,14 @@ def remaining_svr():
     Returns: { 'remaining': n } where n is an integer
     '''
     
-    data = request.get_json()
-    zid = data["zid"]
+    data = request.form.get('zid')
 
     try:
-        num = remaining(zid)
+        num = remaining(data)
     except KeyError as key_err:
         raise KeyError(description=key_err)
-    else:
-        rem_data = {'remaining': num}
-        return dumps(rem_data)
+    
+    return dumps(num)
 
 @APP.route('/help', methods=['POST'])
 def help_svr():
@@ -112,11 +121,10 @@ def resolve_svr():
     Returns: {}
     '''
     
-    data = request.get_json()
-    zid = data["zid"]
+    data = request.json
 
     try:
-        resolve(zid)
+        resolve(data)
     except KeyError as key_err:
         raise KeyError(description=key_err)
     else:
@@ -134,11 +142,10 @@ def cancel_svr():
     Returns: {}
     '''
     
-    data = request.get_json()
-    zid = data["zid"]
+    data = request.json
 
     try:
-        cancel(zid)
+        cancel(data)
     except KeyError as key_err:
         raise KeyError(description=key_err)
     else:
