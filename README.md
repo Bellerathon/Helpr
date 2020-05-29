@@ -1,4 +1,4 @@
-# Helpr
+# HELPR WEBSITE
 Website that allows students to queue for help. 
 
 # Context
