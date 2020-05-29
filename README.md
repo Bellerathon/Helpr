@@ -13,6 +13,6 @@ First time using HTML, CSS and Javascript.
 ## How to run
 
 1. Install dependencies from requirements.txt.
-2. Run python3 server.py.
+2. Run: python3 server.py in terminal.
 3. Click on generated URL.
-4. check URL port is 5000 (not 5001).
+4. Check URL port is 5000 (not 5001).
