@@ -14,7 +14,7 @@
       radial-gradient(circle at 93.3% 75%,
         rgba(0,255,0,.5),
         rgba(0,255,0,0) 70.71%) beige;
-  border-radius: 50%; margin: 30px; margin-bottom: 30rem;}
+  border-radius: 50%; margin: 100px; margin-bottom: 30rem;}
     </style>
 </head>
 
@@ -97,7 +97,7 @@
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState === XMLHttpRequest.DONE) {
                 if (xhttp.responseText == '[]') {
-                    document.getElementById("rQueue").innerHTML = "<span style='color: red;'>---------------------------------------------- QUEUE IS EMPTY -------------------------------------------</span>";
+                    document.getElementById("rQueue").innerHTML = "<span style='color: red;'>----------------------------------------------------------------------------------- QUEUE IS EMPTY ------------------------------------------------------------------------------------</span>";
                 } else {
                     document.getElementById("rQueue").innerHTML = xhttp.responseText;
                 }

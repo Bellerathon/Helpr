@@ -17,7 +17,7 @@
         rgba(0,0,255,0) 70.71%),
       radial-gradient(circle at 93.3% 75%,
         rgba(0,255,0,.5),
-        rgba(0,255,0,0) 70.71%) beige; margin:30px}   
+        rgba(0,255,0,0) 70.71%) beige; margin:200px}   
     </style>
 </head>
 
@@ -186,7 +186,7 @@ clock();
 <script>
     var localLength = localStorage["lngth"];
     function get_time(){
-        var d = new Date(); // for now
+        var d = new Date(); // e.g
         var hrs = d.getHours(); // => 9
         var mints = d.getMinutes(); // =>  30
         var sec = d.getSeconds(); // => 51
@@ -237,7 +237,7 @@ clock();
                 $(document).ready(function() {
                     $(".alert").show();
                     $(".alert").first().hide().slideDown(500).delay(4000).slideUp(500, function () {
-                        $(this).remove(); 
+                        $(this).hide(); 
                     });
                 });
             },
