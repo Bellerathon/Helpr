@@ -18,11 +18,11 @@ APP = Flask(__name__)
 
 @APP.route('/')
 def index():
-    return render_template('new.html')
+    return render_template('mainpage.html')
 
 @APP.route('/admin')
 def admin_page():
-    return render_template('admin.html')
+    return render_template('adminpage.html')
 
 @APP.route('/hello/', methods=['GET', 'POST'])
 def hello_world():

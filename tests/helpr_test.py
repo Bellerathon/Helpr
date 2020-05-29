@@ -28,14 +28,14 @@ def test_sanity():
     # Student 1 makes a request
     make_request(student1, description1)
     assert queue() == [{"zid": student1, "description": description1, "status": "waiting"}]
-    assert remaining(student1) == 0
+    assert remaining(student1) == -1
 
     # Student 2 makes a request
     make_request(student2, description2)
     assert queue() == [{"zid": student1, "description": description1, "status": "waiting"},
                        {"zid": student2, "description": description2, "status": "waiting"}]
-    assert remaining(student1) == 0
-    assert remaining(student2) == 1
+    assert remaining(student1) == -1
+    assert remaining(student2) == 0
 
     # Student 1 gets help
     help(student1)
@@ -43,7 +43,7 @@ def test_sanity():
                        {"zid": student2, "description": description2, "status": "waiting"}]
     # Student 2 is now the only student "waiting" in the queue, so they have no
     # one remaining in front of them
-    assert remaining(student2) == 0
+    assert remaining(student2) == -1
 
     # Student 1 has their problem resolved
     resolve(student1)
@@ -162,7 +162,7 @@ def test_remaining_02():
     make_request(student1, description1)
     make_request(student2, description2)
     
-    assert remaining(student2) == 1
+    assert remaining(student2) == 0
     
     end()
 
