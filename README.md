@@ -2,7 +2,7 @@
 Website that allows students to queue for help. 
 
 ## Context
-First time using HTML, CSS and Javascript. Hence is very rough/buggy etc. Not intended for use outside of learning, adn was never deployed.
+First time using HTML, CSS and Javascript. Hence is very rough/buggy etc. Not intended for use outside of learning, and was never deployed.
 
 ## Details
 <b>helpr.py</b> - Contains all the logic of the website, has a function for each feature on the website (view queue, cancel request etc..).  
